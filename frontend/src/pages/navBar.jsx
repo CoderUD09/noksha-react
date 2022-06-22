@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Flower from "../components/flower";
 import Noksha from "../components/noksha";
 
@@ -24,26 +25,26 @@ export default class navBar extends Component {
 
           <ul className="nav-menu">
             <li className="nav-elem">
-              <a href="/#" className="active">
+              <Link to="/" className="active">
                 HOME
-              </a>
+              </Link>
             </li>
             <li className="nav-elem">
-              <a href="/#">MEN</a>
+              <Link to="/men">MEN</Link>
             </li>
             <li className="nav-elem">
-              <a href="/#">WOMEN</a>
+              <Link to="/women">WOMEN</Link>
             </li>
             <li className="nav-elem">
-              <a href="/#">CHILDREN</a>
+              <Link to="/children">CHILDREN</Link>
             </li>
           </ul>
           <div className="icon">
             <ul className="nav-menu">
               <i className="fa fa-shopping-cart fa-custom fa-2x"></i>
-              <a href="/#" className="icon">
+              <Link to="/login" className="icon">
                 <i className="fa fa-user fa-custom fa-2x"></i>
-              </a>
+              </Link>
             </ul>
           </div>
         </nav>

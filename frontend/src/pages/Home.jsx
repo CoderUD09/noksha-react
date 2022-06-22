@@ -23,7 +23,7 @@ export const Home = () => {
   return (
     <React.Fragment>
       <div className="banner">
-        <div className="Wrapper">
+        <div className="Wrapper container">
           <h2 className="title">MEN</h2>
           <Splide
             options={{
@@ -52,8 +52,12 @@ export const Home = () => {
             )}
           </Splide>
         </div>
-        <h2 className="title">WOMEN</h2>
-        <h2 className="title">CHILDREN</h2>
+        <div className="Wrapper container">
+          <h2 className="title">WOMEN</h2>
+        </div>
+        <div className="Wrapper container">
+          <h2 className="title">CHILDREN</h2>
+        </div>
       </div>
     </React.Fragment>
   );
