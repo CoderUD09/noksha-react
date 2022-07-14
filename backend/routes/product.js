@@ -42,4 +42,31 @@ router.route('/category/specific').get(async (req, res) => {
   }
 })
 
+router.route('/category/new').get(async (req, res) => {
+  try {
+    const { category, pageNo, productPerPage } = req.query;
+
+    const product = await Product
+      .find({ category, is_new: true })
+      .skip(productPerPage * (pageNo - 1))
+      .limit(productPerPage);
+
+    console.log(`No of new product(s): ${product.length} in category: ${category}`);
+    res.json({ data: product, });
+  } catch (error) {
+    res.json(error);
+  }
+})
+
+router.route('/category/new/count').get(async (req, res) => {
+  try {
+    const { category } = req.query;
+    const product = await Product.find({ category, is_new: true }).count();
+    console.log(product);
+    res.json({ data: product, });
+  } catch (error) {
+    res.json(error);
+  }
+})
+
 module.exports = router;
