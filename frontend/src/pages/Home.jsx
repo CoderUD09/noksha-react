@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/splide.min.css";
 import { useState } from "react";
@@ -37,7 +38,7 @@ export const Home = () => {
             {data.map((item) => {
               return (
                 <SplideSlide key={item._id}>
-                  <div className="card">
+                  <div className="card cardHome">
                     <p className="cardText">
                       <div className="row">
                         <div className="col-md-auto cat">{item.subcategory}</div>
@@ -50,6 +51,15 @@ export const Home = () => {
               );
             }
             )}
+            <SplideSlide>
+              <div className="card">
+                <p className="cardText">
+                  <div className="row">
+                    <Link to={"/men"}>Show More {">>"}</Link>
+                  </div>
+                </p>
+              </div>
+            </SplideSlide>
           </Splide>
         </div>
         <div className="Wrapper container">
