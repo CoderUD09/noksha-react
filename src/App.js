@@ -12,8 +12,8 @@ import {
 import { Home } from "./pages/Home";
 import { Men } from "./pages/men";
 import Login from "./pages/Login";
-import Women from "./pages/women";
 import Layout from "./Layout";
+console.log(process.env.REACT_APP_BASE_API_URL);
 
 export default class App extends Component {
   render() {
@@ -23,8 +23,8 @@ export default class App extends Component {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/men" element={<Men category={"men"} />} />
-            <Route path="/women" element={<Men category={"women"}/>} />
-            <Route path="/children" element={<Men category={"kids"}/>} />
+            <Route path="/women" element={<Men category={"women"} />} />
+            <Route path="/children" element={<Men category={"kids"} />} />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>

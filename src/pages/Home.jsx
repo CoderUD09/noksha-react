@@ -5,12 +5,13 @@ import "@splidejs/splide/dist/css/splide.min.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import "../styles/home.css"
+console.log(process.env.REACT_APP_BASE_API_URL);
 
 export const Home = () => {
   const [data, setData] = useState([]);
   const loadData = async () => {
     try {
-      const res = await fetch("http://localhost:3000/?limit=20&category=men");
+      const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/?limit=20&category=men`);
       const response = await res.json();
       setData(response.data);
     } catch (error) {

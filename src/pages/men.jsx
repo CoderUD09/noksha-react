@@ -13,7 +13,7 @@ export const Men = (props) => {
 
     const fetchCat = async () => {
         try {
-            const res = await fetch(`http://localhost:3000/category?category=${category}`);
+            const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category?category=${category}`);
             const response = await res.json();
             setsubCat(response.data);
         } catch (error) {
@@ -23,7 +23,7 @@ export const Men = (props) => {
 
     const fetchNewItems = async (pageNo) => {
         try {
-            const res = await fetch(`http://localhost:3000/category/new?category=${category}&pageNo=${pageNo}&productPerPage=${limit}`);
+            const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/new?category=${category}&pageNo=${pageNo}&productPerPage=${limit}`);
             const response = await res.json();
             return response;
         } catch (error) {
@@ -41,9 +41,9 @@ export const Men = (props) => {
     useEffect(() => {
         const fetchPageNo = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/category/new?category=${category}&pageNo=1&productPerPage=${limit}`);
+                const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/new?category=${category}&pageNo=1&productPerPage=${limit}`);
                 const respone = await res.json();
-                const totalres = await fetch(`http://localhost:3000/category/new/count?category=${category}`);
+                const totalres = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/new/count?category=${category}`);
                 const totalresponse = await totalres.json();
                 const total = totalresponse.data;
                 console.log(total);
