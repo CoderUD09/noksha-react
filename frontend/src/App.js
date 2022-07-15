@@ -23,7 +23,8 @@ export default class App extends Component {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="/men" element={<Men category={"men"} />} />
-            <Route path="/women" element={<Women />} />
+            <Route path="/women" element={<Men category={"women"}/>} />
+            <Route path="/children" element={<Men category={"kids"}/>} />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>

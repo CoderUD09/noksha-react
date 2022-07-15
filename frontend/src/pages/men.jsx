@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { SideBar } from "./sideBar";
+import Card from "./card";
 
 export const Men = (props) => {
     const [subCat, setsubCat] = useState([]);
@@ -57,35 +58,25 @@ export const Men = (props) => {
     }, [limit]);
 
     return (
-        <React.Fragment>
+        <React.Fragment style={{ display: 'flex' }}>
             <SideBar subCats={subCat} />
-            <div className="container">
-                <h1 className="titleProduct text-info">New Arrival</h1>
-                <div className="row m-2">
-                    {newItems.map((item) => {
-                        return (
-                            <div class="col-sm-4">
-                                <div class="card cardProduct">
-                                    <div class="image">
-                                        <img src={item.image_url} alt='Not Found' />
-                                    </div>
-                                    <div class="card-title card-inner">
-                                        <div class="header">
-                                            <h2>$ {item.current_price}</h2>
-                                            <h3>{item.subcategory}</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
+            <div className="container" style={{ height: '700vh', width: 'auto', paddingLeft: '15%' }}>
+                <div className="container" style={{ height: '350vh', width: 'auto', }}>
+                    <h1 className="titleProduct text-info">New Arrival</h1>
+                    <div className="row m-2">
+                        {newItems.map((item) => {
+                            return (
+                                <Card item={item} />
+                            );
+                        })}
+                    </div>
                 </div>
                 <ReactPaginate
                     previousLabel={"previous"}
                     nextLabel={"next"}
                     breakLabel={"..."}
                     pageCount={pageCount}
-                    marginPagesDisplayed={2}
+                    marginPagesDisplayed={3}
                     pageRangeDisplayed={3}
                     onPageChange={handlePageClick}
                     containerClassName={"pagination justify-content-center"}
@@ -99,10 +90,10 @@ export const Men = (props) => {
                     breakLinkClassName={"page-link"}
                     activeClassName={"active"}
                 />
-            </div>
 
-            <div className="container">
-                <h1 className="titleProduct text-danger">Most Liked</h1>
+                <div className="container" style={{ height: '350vh', overflowY: 'auto', width: 'auto', scrollbarWidth: 'none' }}>
+                    <h1 className="titleProduct text-danger">Most Liked</h1>
+                </div>
             </div>
         </React.Fragment>
     );

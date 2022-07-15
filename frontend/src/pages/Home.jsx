@@ -25,7 +25,7 @@ export const Home = () => {
     <React.Fragment>
       <div className="banner">
         <div className="Wrapper container">
-          <h2 className="title">MEN</h2>
+          <h1 className="titleProduct text-white">MEN</h1>
           <Splide
             options={{
               perPage: 4,
@@ -45,7 +45,7 @@ export const Home = () => {
                         <div className="col-md-auto price">${item.current_price}</div>
                       </div>
                     </p>
-                    <img src={item.image_url} alt={item.name} />
+                    <img id='img-home' src={item.image_url} alt={item.name} />
                   </div>
                 </SplideSlide>
               );
@@ -63,10 +63,10 @@ export const Home = () => {
           </Splide>
         </div>
         <div className="Wrapper container">
-          <h2 className="title">WOMEN</h2>
+          <h1 className="titleProduct text-white">WOMEN</h1>
         </div>
         <div className="Wrapper container">
-          <h2 className="title">CHILDREN</h2>
+          <h1 className="titleProduct text-white">CHILDREN</h1>
         </div>
       </div>
     </React.Fragment>
