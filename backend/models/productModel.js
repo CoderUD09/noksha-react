@@ -16,9 +16,6 @@ const productSchema = new mongoose.Schema({
   raw_price: {
     type: Number,
   },
-  currency: {
-    type: String,
-  },
   discount: {
     type: Number,
   },
@@ -27,9 +24,6 @@ const productSchema = new mongoose.Schema({
   },
   is_new: {
     type: Boolean,
-  },
-  codCountry: {
-    type: String,
   },
   variation_0_color: {
     type: String,
@@ -52,17 +46,8 @@ const productSchema = new mongoose.Schema({
   image_url: {
     type: String,
   },
-  url: {
-    type: String,
-  },
-  id: {
-    type: String,
-  },
-  model: {
-    type: String,
-  },
 });
 
-const Product = mongoose.model("men", productSchema);
+const Product = mongoose.model("mens", productSchema);
 
 module.exports = Product;
