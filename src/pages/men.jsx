@@ -2,14 +2,17 @@ import React, { Component, useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { SideBar } from "./sideBar";
 import Card from "./card";
+import { useParams } from "react-router-dom";
 
 export const Men = (props) => {
     const [subCat, setsubCat] = useState([]);
     const [newItems, setnewItems] = useState([]);
     const [pageCount, setpageCount] = useState(0);
 
+    const { cat } = useParams();
+
     let limit = 6;
-    let category = props.category;
+    let category = cat;
 
     const fetchCat = async () => {
         try {
@@ -38,24 +41,25 @@ export const Men = (props) => {
         setnewItems(newItemsCollected.data);
     };
 
-    useEffect(() => {
-        const fetchPageNo = async () => {
-            try {
-                const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/new?category=${category}&pageNo=1&productPerPage=${limit}`);
-                const respone = await res.json();
-                const totalres = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/new/count?category=${category}`);
-                const totalresponse = await totalres.json();
-                const total = totalresponse.data;
-                console.log(total);
-                setpageCount(Math.ceil(total / limit));
-                setnewItems(respone.data);
-            } catch (error) {
-                console.log(error);
-            }
+    const fetchPageNo = async () => {
+        try {
+            const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/new?category=${category}&pageNo=1&productPerPage=${limit}`);
+            const respone = await res.json();
+            const totalres = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/new/count?category=${category}`);
+            const totalresponse = await totalres.json();
+            const total = totalresponse.data;
+            console.log(total);
+            setpageCount(Math.ceil(total / limit));
+            setnewItems(respone.data);
+        } catch (error) {
+            console.log(error);
         }
+    };
+
+    useEffect(() => {
         fetchCat();
         fetchPageNo();
-    }, [limit]);
+    }, [limit, cat]);
 
     return (
         <React.Fragment style={{ display: 'flex' }}>
