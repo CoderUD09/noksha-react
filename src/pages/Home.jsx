@@ -7,9 +7,11 @@ export const Home = () => {
   return (
     <React.Fragment>
       <div className="banner">
-        <HomeProduct category={"men"} />
-        <HomeProduct category={"women"} />
-        <HomeProduct category={"kids"} />
+        <div className="container" style={{ paddingBottom: '5%' }}>
+          <HomeProduct category={"men"} />
+          <HomeProduct category={"women"} />
+          <HomeProduct category={"kids"} />
+        </div>
       </div>
     </React.Fragment>
   );
