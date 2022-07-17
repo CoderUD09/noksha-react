@@ -23,8 +23,6 @@ export const HomeProduct = (props) => {
         loadData();
     }, [category]);
 
-    console.log(data);
-
     return (
         <React.Fragment>
             <div className="Wrapper container">
@@ -45,7 +43,7 @@ export const HomeProduct = (props) => {
                                     <p className="cardText">
                                         <div className="row">
                                             <div className="col-md-auto cat">{item.subcategory}</div>
-                                            <div className="col-md-auto price">${item.current_price}</div>
+                                            <div className="col-md-auto price">BDT {item.current_price}</div>
                                         </div>
                                     </p>
                                     <img id='img-home' src={item.image_url} alt={item.name} />

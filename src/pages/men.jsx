@@ -59,6 +59,10 @@ export const Men = (props) => {
     useEffect(() => {
         fetchCat();
         fetchPageNo();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // for smoothly scrolling
+        });
     }, [limit, cat]);
 
     return (

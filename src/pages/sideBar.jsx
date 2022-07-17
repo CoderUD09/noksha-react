@@ -13,8 +13,8 @@ export const SideBar = function (props) {
                     return (
                         <ul class="nav">
                             <li>
-                                <a href="#">
-                                    <i class="fa-solid fa-bags-shopping"></i> ${item}
+                                <a className="AnchorSideBar" href="#">
+                                    {item}
                                 </a>
                             </li>
                         </ul>
