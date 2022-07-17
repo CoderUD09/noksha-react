@@ -10,7 +10,8 @@
     max-width: 380px;
 }
 
-.card:hover {
+.card:hover,
+.cardProduct:hover {
     transition: 200ms;
     border: 3px;
     border-color: tomato;
@@ -21,7 +22,6 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-
 }
 
 .profile {
@@ -70,7 +70,7 @@
 }
 
 .card-text {
-    width: 350px;
+    width: 250px;
     font-size: medium;
 }
 

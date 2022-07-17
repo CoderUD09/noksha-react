@@ -4,7 +4,7 @@ import "../styles/Card.css";
 export default function Card(props) {
     let item = props.item;
     return (
-        <div className="card cardProduct">
+        <div className="card cardProduct" style={{ width: '280px', height: '550px', marginBottom: '5vh', marginRight: '2vh' }}>
             <div className="card-header">
                 <div className="profile">
                     <span className="letter">{item.category[0]}</span>
@@ -23,7 +23,7 @@ export default function Card(props) {
                     <i className="fa-light fa-thumbs-up"></i>
                 )}
                 <div className="like-text">
-                    <b>{item.likes_count}</b> people(s) like this {item.subcategory}.
+                    <b>{item.likes_count}</b> people(s) like this.
                 </div>
             </div>
         </div>

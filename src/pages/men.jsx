@@ -11,7 +11,7 @@ export const Men = (props) => {
 
     const { cat } = useParams();
 
-    let limit = 6;
+    let limit = 9;
     let category = cat;
 
     const fetchCat = async () => {
@@ -66,10 +66,10 @@ export const Men = (props) => {
     }, [limit, cat]);
 
     return (
-        <React.Fragment style={{ display: 'flex' }}>
+        <React.Fragment>
             <SideBar subCats={subCat} />
-            <div className="container" style={{ height: '700vh', width: 'auto', paddingLeft: '15%' }}>
-                <div className="container" style={{ height: '350vh', width: 'auto', }}>
+            <div className="container" style={{ height: 'inherit', width: 'auto', paddingLeft: '15%' }}>
+                <div className="container" style={{ height: 'inherit', width: 'auto' }}>
                     <h1 className="titleProduct text-info">New Arrival</h1>
                     <div className="row m-2">
                         {newItems.map((item) => {
@@ -99,7 +99,7 @@ export const Men = (props) => {
                     activeClassName={"active"}
                 />
 
-                <div className="container" style={{ height: '350vh', overflowY: 'auto', width: 'auto', scrollbarWidth: 'none' }}>
+                <div className="container" style={{ height: 'inherit', width: 'auto' }}>
                     <h1 className="titleProduct text-danger">Most Liked</h1>
                 </div>
             </div>
