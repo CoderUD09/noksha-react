@@ -1,15 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/peopleModel");
+const { signup, signin, findMe } = require("../controllers/user.controller");
 
-router.route("/").post(async (req, res) => {
-  try {
-    console.log(req.body);
-    const user = await User.create(req.body);
-    return res.status(200).json({ user });
-  } catch (error) {
-    return res.json(error);
-  }
-});
+router.route("/signup").post(signup);
+router.route("/signin").post(signin);
+router.route("/me").post(findMe);
 
 module.exports = router;
