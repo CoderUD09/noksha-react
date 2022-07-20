@@ -196,3 +196,20 @@ input[type="search"]:focus {
     transform: rotate(360deg);
   }
 }
+
+.left-pan {
+  padding: 0px !important;
+  width: fit-content;
+  border-right: 3px solid #263238;
+}
+
+.right-pan {
+  height: inherit;
+  width: auto;
+}
+
+.right-pan-1,
+.right-pan-2 {
+  height: inherit;
+  width: auto;
+}

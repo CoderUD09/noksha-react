@@ -1,9 +1,5 @@
 #sidebar {
-    float: left;
     width: 250px;
-    overflow-y: auto;
-    height: 333.5vh;
-    background: #37474F;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -18,19 +14,27 @@
     text-align: center;
 }
 
-#sidebar .nav .AnchorSideBar {
-    background: none;
-    border-bottom: 1px solid #455A64;
-    color: #CFD8DC;
-    font-size: 14px;
-    text-decoration: none;
-    padding-top: 20px;
-    padding-left: 20px;
+.AnchorSideBar {
+    margin-left: 7%;
 }
 
-#sidebar .nav .AnchorSideBar:hover {
+#sidebar .NAV .AnchorSideBar {
     background: none;
-    color: #ECEFF1;
+    color: black;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+#sidebar .NAV:hover {
+    border: 1px solid #455A64;
+    background-color: #263238;
+}
+
+#sidebar .NAV .AnchorSideBar:hover {
+    background: none;
+    color: white;
+    font-size: 16px;
 }
 
 #sidebar .nav .AnchorSideBar i {

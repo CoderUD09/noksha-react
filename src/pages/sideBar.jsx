@@ -11,13 +11,11 @@ export const SideBar = function (props) {
                 <header> Categories </header>
                 {subCats.map((item => {
                     return (
-                        <ul class="nav">
-                            <li>
-                                <a className="AnchorSideBar" href="#">
-                                    {item}
-                                </a>
-                            </li>
-                        </ul>
+                        <div className="col-lg NAV">
+                            <a className="AnchorSideBar" href="#">
+                                {item}
+                            </a>
+                        </div>
                     );
                 }))}
             </div>

@@ -1,10 +1,10 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { SideBar } from "./sideBar";
 import Card from "./card";
 import { useParams } from "react-router-dom";
 
-export const Men = (props) => {
+export const Men = () => {
     const [subCat, setsubCat] = useState([]);
     const [newItems, setnewItems] = useState([]);
     const [pageCount, setpageCount] = useState(0);
@@ -66,43 +66,45 @@ export const Men = (props) => {
     }, [limit, cat]);
 
     return (
-        <React.Fragment>
-            <SideBar subCats={subCat} />
-            <div className="container" style={{ height: 'inherit', width: 'auto', paddingLeft: '15%' }}>
-                <div className="container" style={{ height: 'inherit', width: 'auto' }}>
-                    <h1 className="titleProduct text-info">New Arrival</h1>
-                    <div className="row m-2">
-                        {newItems.map((item) => {
-                            return (
-                                <Card item={item} />
-                            );
-                        })}
+        <>
+            <div className="row">
+                <div className="left-pan col-lg-3"><SideBar subCats={subCat} /></div>
+                <div className="container right-pan col-lg">
+                    <div className="container right-pan-1" style={{ height: 'inherit', width: 'auto' }}>
+                        <h1 className="titleProduct text-info">New Arrival</h1>
+                        <div className="row m-2">
+                            {newItems.map((item) => {
+                                return (
+                                    <Card item={item} />
+                                );
+                            })}
+                        </div>
+                    </div>
+                    <ReactPaginate
+                        previousLabel={"previous"}
+                        nextLabel={"next"}
+                        breakLabel={"..."}
+                        pageCount={pageCount}
+                        marginPagesDisplayed={3}
+                        pageRangeDisplayed={3}
+                        onPageChange={handlePageClick}
+                        containerClassName={"pagination justify-content-center"}
+                        pageClassName={"page-item"}
+                        pageLinkClassName={"page-link"}
+                        previousClassName={"page-item"}
+                        previousLinkClassName={"page-link"}
+                        nextClassName={"page-item"}
+                        nextLinkClassName={"page-link"}
+                        breakClassName={"page-item"}
+                        breakLinkClassName={"page-link"}
+                        activeClassName={"active"}
+                    />
+
+                    <div className="container right-pan-2">
+                        <h1 className="titleProduct text-danger">Most Liked</h1>
                     </div>
                 </div>
-                <ReactPaginate
-                    previousLabel={"previous"}
-                    nextLabel={"next"}
-                    breakLabel={"..."}
-                    pageCount={pageCount}
-                    marginPagesDisplayed={3}
-                    pageRangeDisplayed={3}
-                    onPageChange={handlePageClick}
-                    containerClassName={"pagination justify-content-center"}
-                    pageClassName={"page-item"}
-                    pageLinkClassName={"page-link"}
-                    previousClassName={"page-item"}
-                    previousLinkClassName={"page-link"}
-                    nextClassName={"page-item"}
-                    nextLinkClassName={"page-link"}
-                    breakClassName={"page-item"}
-                    breakLinkClassName={"page-link"}
-                    activeClassName={"active"}
-                />
-
-                <div className="container" style={{ height: 'inherit', width: 'auto' }}>
-                    <h1 className="titleProduct text-danger">Most Liked</h1>
-                </div>
             </div>
-        </React.Fragment>
+        </>
     );
 }
