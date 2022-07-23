@@ -24,6 +24,7 @@ module.exports.signup = async (req, res) => {
 };
 
 module.exports.signin = async (req, res) => {
+  // console.log(req.body);
   try {
     const user = await User.findOne({ email: req.body.email }).select(
       "+password"
@@ -39,10 +40,12 @@ module.exports.signin = async (req, res) => {
     }
     const userObj = JSON.parse(JSON.stringify(user));
     delete userObj.password;
-    const token = await generateJWT(userObj._id);
+    const tokenId = await generateJWT(userObj._id);
+    // console.log(userObj);
+    // console.log(tokenId);
     return res.status(201).json({
       user: userObj,
-      token: token,
+      token: tokenId,
       message: "Sign in completed!",
     });
   } catch (error) {
@@ -56,6 +59,8 @@ module.exports.signin = async (req, res) => {
 
 module.exports.findMe = async (req, res) => {
   try {
+    // console.log("new");
+    console.log(req.body);
     const decode = jwt.decode(req.body.token);
     const user = await User.findById(decode.id);
     return res.status(201).json({
