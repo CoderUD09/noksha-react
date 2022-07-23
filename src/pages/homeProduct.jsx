@@ -14,6 +14,12 @@ export const HomeProduct = (props) => {
         try {
             const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/?limit=20&category=${category}`);
             const response = await res.json();
+            // const imgFilter = response.data.filter((item) => {
+            //     const img = new Image();
+            //     img.src = item.image_url;
+            //     return img.height != 0;
+            // });
+            // setData(imgFilter);
             setData(response.data);
         } catch (error) {
             console.log(error);

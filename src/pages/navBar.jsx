@@ -1,10 +1,21 @@
-import React, { Component } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useContext } from "react";
+import { useLocation, useNavigate, Link, useParams } from "react-router-dom";
 import Flower from "../components/flower";
 import Noksha from "../components/noksha";
+import { UserContext } from "../states/userContext";
+import Dropdown from 'react-bootstrap/Dropdown';
 
 export const NavBar = () => {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { from } = location.state || { from: { pathname: "/login" } };
   const { cat } = useParams();
+  const logOut = (event) => {
+    event.preventDefault();
+    localStorage.clear();
+    navigate(from);
+  }
   return (
     <React.Fragment>
       <nav className="mainNavbar border-bottom">
@@ -25,7 +36,7 @@ export const NavBar = () => {
 
         <ul className="nav-menu">
           <li className="nav-elem">
-            <Link to="/" className={cat === '' ? 'active' : ''}>
+            <Link to="/" className={cat === null ? 'active' : ''}>
               HOME
             </Link>
           </li>
@@ -42,9 +53,22 @@ export const NavBar = () => {
         <div className="icon">
           <ul className="nav-menu">
             <i className="fa fa-shopping-cart fa-custom fa-2x"></i>
-            <Link to="/login" className="icon">
-              <i className="fa fa-user fa-custom fa-2x"></i>
-            </Link>
+            {user.name ? (
+              <Dropdown size="sm" variant="secondary">
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  {user.name}
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#/action-1">Profile</Dropdown.Item>
+                  <Dropdown.Item onClick={logOut}>Log Out</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            ) : (
+              <Link to="/login" className="icon">
+                <i className="fa fa-user fa-custom fa-2x"></i>
+              </Link>
+            )}
           </ul>
         </div>
       </nav>
