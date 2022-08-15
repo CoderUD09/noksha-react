@@ -4,6 +4,7 @@ export const UserContext = createContext({});
 
 export const UserContextProvider = ({ children }) => {
     const [user, setUser] = useState({});
+    const [selectedSubCat, setselectedSubCat] = useState();
 
     const context = {
         user,
@@ -24,7 +25,7 @@ export const UserContextProvider = ({ children }) => {
             };
             const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/user/me`, settings);
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             // const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/user/me`, {
             //     method: 'POST',
             //     body: { token },

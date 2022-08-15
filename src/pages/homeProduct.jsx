@@ -45,15 +45,19 @@ export const HomeProduct = (props) => {
                     {data.map((item) => {
                         return (
                             <SplideSlide key={item._id}>
+
                                 <div className="card cardHome">
-                                    <p className="cardText">
-                                        <div className="row">
-                                            <div className="col-md-auto cat">{item.subcategory}</div>
-                                            <div className="col-md-auto price">BDT {item.current_price}</div>
-                                        </div>
-                                    </p>
-                                    <img id='img-home' src={item.image_url} alt={item.name} />
+                                    <Link to={`/product/${item._id}`}>
+                                        <p className="cardText">
+                                            <div className="row">
+                                                <div className="col-md-auto cat">{item.subcategory}</div>
+                                                <div className="col-md-auto price">BDT {item.current_price}</div>
+                                            </div>
+                                        </p>
+                                        <img id='img-home' src={item.image_url} alt={item.name} />
+                                    </Link>
                                 </div>
+
                             </SplideSlide>
                         );
                     }

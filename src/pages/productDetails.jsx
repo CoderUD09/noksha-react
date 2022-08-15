@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import { SelectedSubCat } from "./selectedSubCat";
 
-export const Men = () => {
+export const ProductDetails = () => {
     const [subCat, setsubCat] = useState([]);
     const [newItems, setnewItems] = useState([]);
     const [pageCount, setpageCount] = useState(0);
@@ -16,6 +16,7 @@ export const Men = () => {
     const [selectedSubCat, setselectedSubCat] = useState('');
 
     const { cat } = useParams();
+    let { id } = useParams();
 
     let limit = 9;
     let category = cat;
@@ -99,6 +100,7 @@ export const Men = () => {
         // setTimeout(() => { setLoading(false); }, 10);
         // setLoading(true);
         // setselectedSubCat("Shirts");
+        console.log(id);
         fetchCat();
         fetchPageNo();
         fetchPageNoMostLiked();

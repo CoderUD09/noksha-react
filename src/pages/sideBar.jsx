@@ -1,5 +1,7 @@
-import React from 'react';
+import React from "react";
+import { useState } from "react";
 import '../styles/sideBar.css';
+import Button from "react-bootstrap/Button";
 
 export const SideBar = function (props) {
 
@@ -11,10 +13,10 @@ export const SideBar = function (props) {
                 <header> Categories </header>
                 {subCats.map((item => {
                     return (
-                        <div className="col-lg NAV">
-                            <a className="AnchorSideBar" href="#">
-                                {item}
-                            </a>
+                        <div>
+                            <Button onClick={() => {
+                                props.sendToParent(item)
+                            }}>{item}</Button>
                         </div>
                     );
                 }))}

@@ -36,9 +36,7 @@ export const NavBar = () => {
 
         <ul className="nav-menu">
           <li className="nav-elem">
-            <Link to="/" className={cat === null ? 'active' : ''}>
-              HOME
-            </Link>
+            <Link to="/" className={cat === null ? 'active' : ''}>HOME</Link>
           </li>
           <li className="nav-elem">
             <Link to="/men" className={cat === 'men' ? 'active' : ''}>MEN</Link>
@@ -53,7 +51,7 @@ export const NavBar = () => {
         <div className="icon">
           <ul className="nav-menu">
             <i className="fa fa-shopping-cart fa-custom fa-2x"></i>
-            {user.name ? (
+            {user?.name ? (
               <Dropdown size="sm" variant="secondary">
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                   {user.name}

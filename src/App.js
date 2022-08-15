@@ -11,6 +11,7 @@ import { Home } from "./pages/Home";
 import { Men } from "./pages/men";
 import Login from "./pages/Login";
 import Layout from "./Layout";
+import { ProductDetails } from "./pages/productDetails";
 
 export default class App extends Component {
   render() {
@@ -19,6 +20,7 @@ export default class App extends Component {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/:cat" element={<Men />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>

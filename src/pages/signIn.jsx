@@ -38,6 +38,7 @@ function SignIn() {
                 body: JSON.stringify(obj),
             };
             const response = await fetch(`${process.env.REACT_APP_BASE_API_URL}/user/signin`, settings);
+            console.log(response);
             const data = await response.json();
             console.log(data.token);
             localStorage.setItem("token", data.token);
@@ -58,14 +59,14 @@ function SignIn() {
                     className="input_design"
                     name='email'
                     value={state.email}
-                    onChange={handleChange} />
+                    onChange={handleChange} required />
                 <input
                     type="password"
                     placeholder="Password"
                     className="input_design"
                     name='password'
                     value={state.password}
-                    onChange={handleChange} />
+                    onChange={handleChange} required />
                 <input
                     type="submit"
                     className="btn"
