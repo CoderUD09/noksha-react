@@ -1,196 +1,142 @@
 import React, { useState, useEffect, useContext } from "react";
-import ReactPaginate from "react-paginate";
-import { SideBar } from "./sideBar";
-import Card from "./card";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import Spinner from "react-bootstrap/Spinner";
-import { SelectedSubCat } from "./selectedSubCat";
+import Dropdown from 'react-bootstrap/Dropdown';
+import { useCart } from "react-use-cart";
+import { Splide, SplideSlide } from "@splidejs/react-splide";
+import "@splidejs/splide/dist/css/splide.min.css";
 
 export const ProductDetails = () => {
-    const [subCat, setsubCat] = useState([]);
-    const [newItems, setnewItems] = useState([]);
-    const [pageCount, setpageCount] = useState(0);
-    const [mostLikedItems, setMostLikedItems] = useState([]);
-    const [pageCountMostLiked, setPageCountMostLiked] = useState(0);
-    const [Loading, setLoading] = useState();
-    const [selectedSubCat, setselectedSubCat] = useState('');
+    const [item, setItem] = useState([]);
+    // const [subCatItem, setSubCatItem] = useState();
+    const [menSubCatItem, setMenSubCatItem] = useState([]);
+    const { id } = useParams();
+    const { addItem } = useCart();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const { cat } = useParams();
-    let { id } = useParams();
-
-    let limit = 9;
-    let category = cat;
-
-    const fetchCat = async () => {
+    const fetchSubCat = async (subcat, limit) => {
         try {
-            setLoading(true);
-            const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category?category=${category}`);
+            const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/search?input=${subcat}&pageNo=1&productPerPage=${limit}`);
             const response = await res.json();
-            setsubCat(response.data);
+            setMenSubCatItem(response.data);
+            console.log(menSubCatItem);
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
         }
-    };
+    }
 
-    const fetchNewItems = async (pageNo) => {
+    const fetchItem = async () => {
         try {
-            const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/new?category=${category}&pageNo=${pageNo}&productPerPage=${limit}`);
-            const response = await res.json();
-            return response;
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const fetchMostLikedItems = async (pageNo) => {
-        try {
-            const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/mostliked?category=${category}&pageNo=${pageNo}&productPerPage=${limit}`);
-            const response = await res.json();
-            return response;
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handlePageClick = async (data) => {
-        console.log(data.selected);
-        let currentPage = data.selected + 1;
-        const newItemsCollected = await fetchNewItems(currentPage);
-        setnewItems(newItemsCollected.data);
-    };
-
-    const handlePageClickMostLiked = async (data) => {
-        console.log(data.selected);
-        let currentPage = data.selected + 1;
-        const newItemsCollected = await fetchMostLikedItems(currentPage);
-        setMostLikedItems(newItemsCollected.data);
-    };
-
-    const fetchPageNo = async () => {
-        try {
-            const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/new?category=${category}&pageNo=1&productPerPage=${limit}`);
+            // console.log(id);
+            const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/product/one?pid=${id}`);
             const respone = await res.json();
-            const totalres = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/new/count?category=${category}`);
-            const totalresponse = await totalres.json();
-            const total = totalresponse.data;
-            console.log(total);
-            setpageCount(Math.ceil(total / limit));
-            setnewItems(respone.data);
+            setItem({ ...respone.data, id: respone.data._id, price: respone.data.current_price });
+            fetchSubCat(item.subcategory, 20);
+            // setSubCatItem(item.subcategory);
+            // console.log(respone.data);
+            // setSizeList(respone.size.split(','));
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
         }
-    };
+    }
 
-    const fetchPageNoMostLiked = async () => {
-        try {
-            const res = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/mostliked?category=${category}&pageNo=1&productPerPage=${limit}`);
-            const respone = await res.json();
-            const totalres = await fetch(`${process.env.REACT_APP_BASE_API_URL}/category/mostliked/count?category=${category}`);
-            const totalresponse = await totalres.json();
-            const total = totalresponse.data;
-            console.log(total);
-            setPageCountMostLiked(Math.ceil(total / limit));
-            setMostLikedItems(respone.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const handleClick = (id) => {
+        const { from } = location.state || { from: { pathname: `/product/${id}` } };
+        navigate(from);
+    }
 
     useEffect(() => {
-        // setTimeout(() => { setLoading(false); }, 10);
-        // setLoading(true);
-        // setselectedSubCat("Shirts");
-        console.log(id);
-        fetchCat();
-        fetchPageNo();
-        fetchPageNoMostLiked();
-        setLoading(false);
-        // setTimeout(() => setLoading(false), 3000);
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // for smoothly scrolling
-        });
-    }, [limit, cat]);
+        fetchItem();
+    });
 
 
     return (
         <>
-            {Loading ?
-                (<tr>
-                    <td rowSpan="4" colSpan="4">
-                        <div className="text-center py-5">
-                            <Spinner animation="border" />
-                            <h1>Loading..</h1>
-                        </div>
-                    </td>
-                </tr>) :
-                (<div className="row">
-                    <div className="left-pan col-lg-3"><SideBar subCats={subCat} sendToParent={setselectedSubCat} /></div>
-                    {selectedSubCat !== '' ? (<SelectedSubCat category={cat} subcategory={selectedSubCat} />) :
-                        (<div className="container right-pan col-lg">
-                            <div className="container right-pan-1" style={{ height: 'inherit', width: 'auto' }}>
-                                <h1 className="titleProduct text-info">New Arrival</h1>
-                                <div className="row m-3">
-                                    {newItems.map((item) => {
-                                        return (
-                                            <Card item={item} />
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                            <ReactPaginate
-                                previousLabel={"previous"}
-                                nextLabel={"next"}
-                                breakLabel={"..."}
-                                pageCount={pageCount}
-                                marginPagesDisplayed={3}
-                                pageRangeDisplayed={3}
-                                onPageChange={handlePageClick}
-                                containerClassName={"pagination justify-content-center"}
-                                pageClassName={"page-item"}
-                                pageLinkClassName={"page-link"}
-                                previousClassName={"page-item"}
-                                previousLinkClassName={"page-link"}
-                                nextClassName={"page-item"}
-                                nextLinkClassName={"page-link"}
-                                breakClassName={"page-item"}
-                                breakLinkClassName={"page-link"}
-                                activeClassName={"active"}
-                            />
+            <br />
+            <div className="container">
+                <table className="table table-light m-0">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src={item.image_url} />
+                            </td>
+                            <td>
+                                <h1>{item.subcategory}</h1>
+                                <br />
+                                <h3>{item.name}</h3>
+                                <br />
+                                <h3>{item.brand}</h3>
+                                <br />
+                                {/* {item.stock=== 0 ? <h3><em>Out of Stock</em></h3> : <h3> <b>{item.stock}</b> in Stock</h3>}
+                                <br /> */}
+                                <h2>BDT {item.raw_price === item.current_price ? '' : <del>{item.raw_price}</del>} {"  "} {item.current_price}</h2>
+                                <br />
+                                <Dropdown size="sm" variant="secondary">
+                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                        Size
+                                    </Dropdown.Toggle>
+                                    {/* <Dropdown.Menu>
+                            {sizeList.map((s) => {
+                                return (
+                                    <Dropdown.Item onClick={() => { setSize(s) }}>{s}</Dropdown.Item>
+                                );
+                            })}
+                        </Dropdown.Menu> */}
+                                </Dropdown>
+                                <br />
+                                <button className="btn btn-success" onClick={() => addItem(item)}>
+                                    <b>ADD TO CART</b>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                            <div className="container right-pan-2">
-                                <h1 className="titleProduct text-danger">Most Liked</h1>
-                                <div className="row m-2">
-                                    {mostLikedItems.map((item) => {
-                                        return (
-                                            <Card item={item} />
-                                        );
-                                    })}
+                <br />
+                <br />
+                <br />
+                <h1 className="titleProduct">Related Products</h1>
+                <br />
+                <div className="Wrapper container" style={{ marginBottom: '5vh' }}>
+                    {menSubCatItem.length == 0 ? "" :
+                        <Splide
+                            options={{
+                                perPage: 4,
+                                arrows: true,
+                                pagination: false,
+                                drag: "free",
+                                gap: "1rem",
+                            }}
+                        >
+                            {menSubCatItem.map((item) => {
+                                return (
+                                    <SplideSlide key={item._id}>
+                                        <div className="card cardHome" onClick={() => { handleClick(item._id) }} >
+                                            <p className="cardText">
+                                                <div className="row">
+                                                    <div className="col-md-auto cat">{item.subcategory}</div>
+                                                    <div className="col-md-auto price">BDT {item.current_price}</div>
+                                                </div>
+                                            </p>
+                                            <img id='img-home' src={item.image_url} alt="No Image" />
+                                        </div>
+                                    </SplideSlide>
+                                );
+                            }
+                            )}
+                            <SplideSlide>
+                                <div className="card cardHome">
+                                    <p className="cardText">
+                                        <div className="row">
+                                            <Link to={`/men`}>Show More {">>"}</Link>
+                                        </div>
+                                    </p>
                                 </div>
-                                <ReactPaginate
-                                    previousLabel={"previous"}
-                                    nextLabel={"next"}
-                                    breakLabel={"..."}
-                                    pageCount={pageCountMostLiked}
-                                    marginPagesDisplayed={3}
-                                    pageRangeDisplayed={3}
-                                    onPageChange={handlePageClickMostLiked}
-                                    containerClassName={"pagination justify-content-center"}
-                                    pageClassName={"page-item"}
-                                    pageLinkClassName={"page-link"}
-                                    previousClassName={"page-item"}
-                                    previousLinkClassName={"page-link"}
-                                    nextClassName={"page-item"}
-                                    nextLinkClassName={"page-link"}
-                                    breakClassName={"page-item"}
-                                    breakLinkClassName={"page-link"}
-                                    activeClassName={"active"}
-                                />
-                            </div>
-                        </div>)
-                    }
-                </div>)
-            }
+                            </SplideSlide>
+                        </Splide>}
+                </div>
+            </div>
         </>
     );
 }

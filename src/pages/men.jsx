@@ -123,7 +123,7 @@ export const Men = () => {
                     </td>
                 </tr>) :
                 (<div className="row">
-                    <div className="left-pan col-lg-3"><SideBar subCats={subCat} sendToParent={setselectedSubCat} /></div>
+                    <div className="left-pan col-lg-3"><SideBar subCats={subCat} heading={"Categories"} sendToParent={setselectedSubCat} /></div>
                     {selectedSubCat !== '' ? (<SelectedSubCat category={cat} subcategory={selectedSubCat} />) :
                         (<div className="container right-pan col-lg">
                             <div className="container right-pan-1" style={{ height: 'inherit', width: 'auto' }}>
@@ -131,7 +131,7 @@ export const Men = () => {
                                 <div className="row m-3">
                                     {newItems.map((item) => {
                                         return (
-                                            <Card item={item} />
+                                            <Card key={item._id} item={item} />
                                         );
                                     })}
                                 </div>

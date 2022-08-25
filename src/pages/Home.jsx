@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "@splidejs/splide/dist/css/splide.min.css";
-import "../styles/home.css"
+import "../styles/home.css";
 import { HomeProduct } from "./homeProduct";
 
 export const Home = () => {

@@ -12,6 +12,7 @@ function SignIn() {
         email: '',
         password: '',
     })
+    const [msg, setMsg] = useState('');
 
     const handleChange = e => {
         setState({
@@ -43,7 +44,11 @@ function SignIn() {
             console.log(data.token);
             localStorage.setItem("token", data.token);
             setUser(data.user);
-            navigate(from);
+            if (data.status === 500) {
+                setMsg(data.message);
+            } else {
+                navigate(from);
+            }
         } catch (error) {
             console.log(error);
         }
@@ -71,13 +76,8 @@ function SignIn() {
                     type="submit"
                     className="btn"
                     value="Login" />
+                <h3>{msg}</h3>
                 <a className="Anchor" href="#">Forgot your password?</a>
-                <span className="Span">----OR----</span>
-                <div className="social-container">
-                    <a className="Anchor social" href="#" ><i className="fa fa-facebook-f"></i></a>
-                    <a className="Anchor social" href="#" ><i className="fa fa-google-plus"></i></a>
-                    <a className="Anchor social" href="#" ><i className="fa fa-linkedin"></i></a>
-                </div>
             </form>
         </div>
     );
