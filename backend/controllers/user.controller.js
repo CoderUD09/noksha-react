@@ -29,6 +29,7 @@ module.exports.signin = async (req, res) => {
     const user = await User.findOne({ email: req.body.email }).select(
       "+password"
     );
+    // console.log(user);
     const matchPassword = await comparePassword(
       req.body.password,
       user.password
@@ -38,17 +39,21 @@ module.exports.signin = async (req, res) => {
         message: "Wrong password!",
       });
     }
-    const userObj = JSON.parse(JSON.stringify(user));
-    delete userObj.password;
-    const tokenId = await generateJWT(userObj._id);
+    // const userObj = JSON.parse(JSON.stringify(user));
+    // console.log(user._id);
+    delete user.password;
+    const tokenId = await generateJWT(user._id);
+    // console.log("token: ", tokenId);
     // console.log(userObj);
     // console.log(tokenId);
+    // console.log({ user, tokenId });
     return res.status(201).json({
-      user: userObj,
+      user: user,
       token: tokenId,
       message: "Sign in completed!",
     });
   } catch (error) {
+    // console.log(error.message);
     return res.status(500).json({
       error,
       error: error.message,

@@ -43,6 +43,12 @@ const productSchema = new mongoose.Schema({
   variation_1_image: {
     type: String,
   },
+  size: {
+    type: String,
+  },
+  quality: {
+    type: Number,
+  },
   image_url: {
     type: String,
   },
